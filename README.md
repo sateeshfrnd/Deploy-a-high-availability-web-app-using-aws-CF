@@ -38,7 +38,7 @@ The files included are:
 | /images            | Screenshots of the deployment        |
 
 ## Infrastructure Diagram
-![](https://github.com/sateeshfrnd/Deploy-a-high-availability-web-app-using-aws-CF/blob/main/images/deploy-high-availability-web-app.jpeg)
+![Infrastructure Diagram](https://github.com/sateeshfrnd/Deploy-a-high-availability-web-app-using-aws-CF/blob/main/images/deploy-high-availability-web-app.jpeg)
 
 ## Dependencies
 - AWS Account
