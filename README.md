@@ -48,6 +48,17 @@ The files included are:
 
 ## How to run 
 ```
+# create stack
 ./create.sh deploy-ha-infra setup_high_available_infra.yml setup_high_available_infra.json
+
+# update stack
+./update.sh deploy-ha-infra setup_high_available_infra.yml setup_high_available_infra.json
+
+# delete stack
+./delete.sh deploy-ha-infra setup_high_available_infra.yml setup_high_available_infra.json
 ```
 
+## Execution results
+- [CloudFormation Stack Execution](https://github.com/sateeshfrnd/Deploy-a-high-availability-web-app-using-aws-CF/blob/main/cf-stack.md)
+- [Resources](https://github.com/sateeshfrnd/Deploy-a-high-availability-web-app-using-aws-CF/blob/main/resources.md)
+- Working URL : [http://deplo-webap-136pp9oh9h9w6-1054640200.us-east-1.elb.amazonaws.com/](http://deplo-webap-136pp9oh9h9w6-1054640200.us-east-1.elb.amazonaws.com/) 
