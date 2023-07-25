@@ -213,41 +213,7 @@ Resources:
             RouteTableId: !Ref PrivateRouteTable2
             SubnetId: !Ref PrivateSubnet2
 
-    # SecurityGroup
-    LBSecGroup:
-        Type: AWS::EC2::SecurityGroup
-        Properties:
-            GroupDescription: Allow http to our load balancer            
-            VpcId: !Ref VPC
-            SecurityGroupIngress:
-            -  IpProtocol: tcp
-               FromPort: 80
-               ToPort: 80
-               CidrIp: 0.0.0.0/0
-            SecurityGroupEgress:
-            -   IpProtocol: tcp
-                FromPort: 80
-                ToPort: 80
-                CidrIp: 0.0.0.0/0
-    WebServerSecGroup:
-        Type: AWS::EC2::SecurityGroup
-        Properties:
-            GroupDescription: Allow http to our hosts and SSH from local only
-            VpcId: !Ref VPC
-            SecurityGroupIngress:
-            -   IpProtocol: tcp
-                FromPort: 80
-                ToPort: 80
-                CidrIp: 0.0.0.0/0
-            -   IpProtocol: tcp
-                FromPort: 22
-                ToPort: 22
-                CidrIp: 0.0.0.0/0
-            SecurityGroupEgress:
-            -   IpProtocol: tcp
-                FromPort: 0
-                ToPort: 65535
-                CidrIp: 0.0.0.0/0
+ 
 
     # IAM Role for EC2
     S3ReadOnlyEC2:
@@ -293,6 +259,43 @@ Resources:
             Roles:
             - Ref: S3ReadOnlyEC2
   
+    # SecurityGroup
+    LBSecGroup:
+        Type: AWS::EC2::SecurityGroup
+        Properties:
+            GroupDescription: Allow http to our load balancer            
+            VpcId: !Ref VPC
+            SecurityGroupIngress:
+            -  IpProtocol: tcp
+               FromPort: 80
+               ToPort: 80
+               CidrIp: 0.0.0.0/0
+            SecurityGroupEgress:
+            -   IpProtocol: tcp
+                FromPort: 80
+                ToPort: 80
+                CidrIp: 0.0.0.0/0
+    WebServerSecGroup:
+        Type: AWS::EC2::SecurityGroup
+        Properties:
+            GroupDescription: Allow http to our hosts and SSH from local only
+            VpcId: !Ref VPC
+            SecurityGroupIngress:
+            -   IpProtocol: tcp
+                FromPort: 80
+                ToPort: 80
+                CidrIp: 0.0.0.0/0
+            -   IpProtocol: tcp
+                FromPort: 22
+                ToPort: 22
+                # CidrIp: 0.0.0.0/0
+                CidrIp: 192.168.1.3/32 # my local IP
+            SecurityGroupEgress:
+            -   IpProtocol: tcp
+                FromPort: 0
+                ToPort: 65535
+                CidrIp: 0.0.0.0/0
+       
     # AutoScaling Launch Configuration
     WebAppLaunchConfig:
         Type: AWS::AutoScaling::LaunchConfiguration
@@ -331,6 +334,20 @@ Resources:
             TargetGroupARNs:
             -   Ref: WebAppTargetGroup
 
+    # TargetGroup
+    WebAppTargetGroup:
+        Type: AWS::ElasticLoadBalancingV2::TargetGroup
+        Properties:
+            HealthCheckIntervalSeconds: 10
+            HealthCheckPath: /
+            HealthCheckProtocol: HTTP
+            HealthCheckTimeoutSeconds: 8
+            HealthyThresholdCount: 2
+            Port: 80
+            Protocol: HTTP
+            UnhealthyThresholdCount: 5
+            VpcId: !Ref VPC  
+
     # LoadBalancer
     WebAppLB:
         Type: AWS::ElasticLoadBalancingV2::LoadBalancer
@@ -366,20 +383,8 @@ Resources:
                   Values: [/]
             ListenerArn: !Ref 'Listener'
             Priority: 1    
-    
-    # TargetGroup
-    WebAppTargetGroup:
-        Type: AWS::ElasticLoadBalancingV2::TargetGroup
-        Properties:
-            HealthCheckIntervalSeconds: 10
-            HealthCheckPath: /
-            HealthCheckProtocol: HTTP
-            HealthCheckTimeoutSeconds: 8
-            HealthyThresholdCount: 2
-            Port: 80
-            Protocol: HTTP
-            UnhealthyThresholdCount: 5
-            VpcId: !Ref VPC    
+
+      
 
 Outputs: 
 

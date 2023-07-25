@@ -26,5 +26,13 @@
     {
         "ParameterKey": "EC2InstanceType",
         "ParameterValue": "t3.small"
+    },
+	{
+        "ParameterKey": "ServersMinSize",
+        "ParameterValue": "2"
+    },
+    {
+        "ParameterKey": "ServersMaxSize",
+        "ParameterValue": "4"
     }
 ]
