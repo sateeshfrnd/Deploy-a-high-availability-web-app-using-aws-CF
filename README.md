@@ -61,4 +61,4 @@ The files included are:
 ## Execution results
 - [CloudFormation Stack Execution](https://github.com/sateeshfrnd/Deploy-a-high-availability-web-app-using-aws-CF/blob/main/cf-stack.md)
 - [Resources](https://github.com/sateeshfrnd/Deploy-a-high-availability-web-app-using-aws-CF/blob/main/resources.md)
-- Working URL : [http://deplo-webap-136pp9oh9h9w6-1054640200.us-east-1.elb.amazonaws.com/](http://deplo-webap-136pp9oh9h9w6-1054640200.us-east-1.elb.amazonaws.com/) 
+- Working URL : [http://deplo-webap-50u7xm0jv1fw-82392438.us-east-1.elb.amazonaws.com/](http://deplo-webap-50u7xm0jv1fw-82392438.us-east-1.elb.amazonaws.com/) 
